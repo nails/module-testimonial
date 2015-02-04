@@ -10,13 +10,10 @@
  * @link
  */
 
-//  Generic for module
-$lang['testimonials_module_name'] = 'Testimonials';
 
 // --------------------------------------------------------------------------
 
 //  Nav
-$lang['testimonials_nav_index']  = 'Manage Testimonials';
 $lang['testimonials_nav_create'] = 'Add Testimonial';
 
 // --------------------------------------------------------------------------

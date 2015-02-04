@@ -1,7 +1,5 @@
 <?php
 
-//  Include NAILS_Admin_Controller; executes common admin functionality.
-require_once '_admin.php';
 
 /**
  * Manage testimonials
@@ -13,36 +11,20 @@ require_once '_admin.php';
  * @link
  */
 
-class NAILS_Testimonial extends NAILS_Admin_Controller
+namespace Nails\Admin\Testimonial;
+
+class Testimonial extends \AdminController
 {
     /**
-     * Announces this controller's details
+     * Announces this controller's navGroups
      * @return stdClass
      */
     public static function announce()
     {
-        $d = new stdClass();
+        $navGroup = new \Nails\Admin\Nav('Testimonials');
+        $navGroup->addMethod('Manage Testimonials');
 
-        // --------------------------------------------------------------------------
-
-        //  Load the laguage file
-        get_instance()->lang->load('admin_testimonials');
-
-        // --------------------------------------------------------------------------
-
-        //  Configurations
-        $d->name = lang('testimonials_module_name');
-        $d->icon = 'fa-comments';
-
-        // --------------------------------------------------------------------------
-
-        //  Navigation options
-        $d->funcs          = array();
-        $d->funcs['index'] = lang('testimonials_nav_index');
-
-        // --------------------------------------------------------------------------
-
-        return $d;
+        return $navGroup;
     }
 
     // --------------------------------------------------------------------------
@@ -90,7 +72,7 @@ class NAILS_Testimonial extends NAILS_Admin_Controller
      */
     public function index()
     {
-        if (!user_has_permission('admin.testimonial:0.can_manage')) {
+        if (!userHasPermission('admin.testimonial:0.can_manage')) {
 
             unauthorised();
         }
@@ -120,7 +102,7 @@ class NAILS_Testimonial extends NAILS_Admin_Controller
      */
     public function create()
     {
-        if (!user_has_permission('admin.testimonial:0.can_create')) {
+        if (!userHasPermission('admin.testimonial:0.can_create')) {
 
             unauthorised();
         }
@@ -181,7 +163,7 @@ class NAILS_Testimonial extends NAILS_Admin_Controller
      */
     public function edit()
     {
-        if (!user_has_permission('admin.testimonial:0.can_edit')) {
+        if (!userHasPermission('admin.testimonial:0.can_edit')) {
 
             unauthorised();
         }
@@ -252,7 +234,7 @@ class NAILS_Testimonial extends NAILS_Admin_Controller
      */
     public function delete()
     {
-        if (!user_has_permission('admin.testimonial:0.can_delete')) {
+        if (!userHasPermission('admin.testimonial:0.can_delete')) {
 
             unauthorised();
         }
@@ -281,41 +263,5 @@ class NAILS_Testimonial extends NAILS_Admin_Controller
         // --------------------------------------------------------------------------
 
         redirect('admin/testimonial');
-    }
-}
-
-// --------------------------------------------------------------------------
-
-/**
- * OVERLOADING NAILS' ADMIN MODULES
- *
- * The following block of code makes it simple to extend one of the core admin
- * controllers. Some might argue it's a little hacky but it's a simple 'fix'
- * which negates the need to massively extend the CodeIgniter Loader class
- * even further (in all honesty I just can't face understanding the whole
- * Loader class well enough to change it 'properly').
- *
- * Here's how it works:
- *
- * CodeIgniter instantiate a class with the same name as the file, therefore
- * when we try to extend the parent class we get 'cannot redeclare class X' errors
- * and if we call our overloading class something else it will never get instantiated.
- *
- * We solve this by prefixing the main class with NAILS_ and then conditionally
- * declaring this helper class below; the helper gets instantiated et voila.
- *
- * If/when we want to extend the main class we simply define NAILS_ALLOW_EXTENSION_CLASSNAME
- * before including this PHP file and extend as normal (i.e in the same way as below);
- * the helper won't be declared so we can declare our own one, app specific.
- *
- **/
-
-if (!defined('NAILS_ALLOW_EXTENSION_TESTIMONIAL')) {
-
-    /**
-     * Proxy class for NAILS_Testimonial
-     */
-    class Testimonial extends NAILS_Testimonial
-    {
     }
 }
