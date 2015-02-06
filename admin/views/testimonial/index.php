@@ -1,70 +1,66 @@
 <div class="group-testimonials browse">
-	<p>
-	<?php
+    <p>
+        <?=lang('testimonials_index_intro')?>
+    </p>
+    <hr />
+    <?php
 
-		echo lang( 'testimonials_index_intro' );
+        echo \Nails\Admin\Helper::loadSearch($search);
+        echo \Nails\Admin\Helper::loadPagination($pagination);
 
-		if ( userHasPermission( 'admin.testimonial:0.can_create' ) ) :
+    ?>
+    <table>
+        <thead>
+            <tr>
+                <th class="quote"><?=lang('testimonials_index_th_quote')?></th>
+                <th class="actions"><?=lang('testimonials_index_th_actions')?></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
 
-			echo anchor( 'admin/testimonial/create', lang( 'testimonials_nav_create' ), 'class="awesome small green right"' );
+            if ($testimonials) {
 
-		endif;
+                foreach ($testimonials as $testimonial) {
 
-	?>
-	</p>
-	<table style="margin-bottom:1.5em;">
-		<thead>
-			<tr>
-				<th class="quote"><?=lang( 'testimonials_index_th_quote' )?></th>
-				<th class="order"><?=lang( 'testimonials_index_th_order' )?></th>
-				<th class="actions"><?=lang( 'testimonials_index_th_actions' )?></th>
-			</tr>
-		</thead>
-		<tbody>
-			<?php
+                    echo '<tr>';
+                        echo '<td class="quote">';
+                            echo $testimonial->quote_by;
+                            echo '<small>' . word_limiter(strip_tags($testimonial->quote), 50) . '</small>';
+                        echo '</td>';
+                        echo '<td class="actions">';
 
-			if ( $testimonials ) :
+                            if (userHasPermission('admin.testimonial:0.can_edit_objects')) :
 
-				foreach ( $testimonials as $testimonial ) :
+                                echo anchor('admin/testimonial/testimonial/edit/' . $testimonial->id, lang('action_edit'), 'class="awesome small"');
 
-					echo '<tr>';
-						echo '<td class="quote">';
-							echo $testimonial->quote;
-							echo '<small>' . $testimonial->quote_by . '</small>';
-						echo '</td>';
-						echo '<td class="order">';
-							echo $testimonial->order;
-						echo '</td>';
-						echo '<td class="actions">';
+                            endif;
 
-							if ( userHasPermission( 'admin.testimonial:0.can_edit_objects' ) ) :
+                            if (userHasPermission('admin.testimonial:0.can_delete_objects')) :
 
-								echo anchor( 'admin/testimonial/edit/' . $testimonial->id, lang( 'action_edit' ), 'class="awesome small"' );
+                                echo anchor('admin/testimonial/testimonial/delete/' . $testimonial->id, lang('action_delete'), 'class="awesome red small confirm" data-title="Are you sure?" data-body="You cannot undo this action"');
 
-							endif;
+                            endif;
 
-							if ( userHasPermission( 'admin.testimonial:0.can_delete_objects' ) ) :
+                        echo '</td>';
+                    echo '<tr>';
+                }
 
-								echo anchor( 'admin/testimonial/delete/' . $testimonial->id, lang( 'action_delete' ), 'class="awesome red small confirm" data-title="Are you sure?" data-body="You cannot undo this action"' );
+            } else {
 
-							endif;
+                ?>
+                <tr>
+                    <td colspan="2" class="no-data"><?=lang('testimonials_index_no_testimonials')?></td>
+                </tr>
+                <?php
+            }
 
-						echo '</td>';
-					echo '<tr>';
+            ?>
+        </tbody>
+    </table>
+    <?php
 
-				endforeach;
+        echo \Nails\Admin\Helper::loadPagination($pagination);
 
-			else :
-
-				?>
-				<tr>
-					<td colspan="3" class="no-data"><?=lang( 'testimonials_index_no_testimonials' )?></td>
-				</tr>
-				<?php
-
-			endif;
-
-			?>
-		</tbody>
-	</table>
+    ?>
 </div>

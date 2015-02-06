@@ -1,51 +1,54 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
 
 /**
- * Name:			testimonial_model.php
+ * Testimonial model
  *
- * Description:		This model handles everything to do with Testimonials
- *
- **/
-
-/**
- * OVERLOADING NAILS' MODELS
- *
- * Note the name of this class; done like this to allow apps to extend this class.
- * Read full explanation at the bottom of this file.
- *
- **/
+ * @package     Nails
+ * @subpackage  module-testimonial
+ * @category    Controller
+ * @author      Nails Dev Team
+ * @link
+ */
 
 class NAILS_Testimonial_model extends NAILS_Model
 {
-	/**
-	 * Model constructor
-	 *
-	 * @access public
-	 * @param none
-	 * @return void
-	 **/
-	public function __construct()
-	{
-		parent::__construct();
+    /**
+     * Model constructor
+     **/
+    public function __construct()
+    {
+        parent::__construct();
+        $this->_table = NAILS_DB_PREFIX . 'testimonial';
+        $this->_table_prefix = 't';
+    }
 
-		// --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
 
-		$this->_table = NAILS_DB_PREFIX . 'testimonial';
-	}
+    /**
+     * This method applies the conditionals which are common across the get_*()
+     * methods and the count() method.
+     * @param array  $data    Data passed from the calling method
+     * @param string $_caller The name of the calling method
+     * @return void
+     **/
+    protected function _getcount_common($data = array(), $_caller = null)
+    {
+        if (!empty($data['keywords'])) {
 
+            if (!isset($data['or_like'])) {
 
-	// --------------------------------------------------------------------------
+                $data['or_like'] = array();
+            }
 
+            $data['or_like'][] = array('t.quote', $data['keywords']);
+            $data['or_like'][] = array('t.quote_by', $data['keywords']);
+        }
 
-	protected function _getcount_common( $search = NULL )
-	{
-		$this->db->order_by( 'order' );
-	}
+        parent::_getcount_common($data, $_caller);
+    }
 }
 
-
 // --------------------------------------------------------------------------
-
 
 /**
  * OVERLOADING NAILS' MODELS
@@ -71,13 +74,9 @@ class NAILS_Testimonial_model extends NAILS_Model
  *
  **/
 
-if ( ! defined( 'NAILS_ALLOW_EXTENSION_TESTIMONIAL_MODEL' ) ) :
+if (!defined('NAILS_ALLOW_EXTENSION_TESTIMONIAL_MODEL')) {
 
-	class Testimonial_model extends NAILS_Testimonial_model
-	{
-	}
-
-endif;
-
-/* End of file testimonial_model.php */
-/* Location: ./modules/testimonials/models/testimonial_model.php */
+    class Testimonial_model extends NAILS_Testimonial_model
+    {
+    }
+}

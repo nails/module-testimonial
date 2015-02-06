@@ -27,31 +27,19 @@ $lang['testimonials_common_bad_id'] = '<strong>Sorry,</strong> I could not find 
 $lang['testimonials_index_title']           = 'Manage Testimonials';
 $lang['testimonials_index_intro']           = 'All the testimonials listed on site are displayed below.';
 $lang['testimonials_index_th_quote']        = 'Quote';
-$lang['testimonials_index_th_order']        = 'Order';
 $lang['testimonials_index_th_actions']      = 'Actions';
 $lang['testimonials_index_no_testimonials'] = 'No Testimonials Found';
 
 // --------------------------------------------------------------------------
 
-//  Create
-$lang['testimonials_create_title']          = 'Add Testiomonial';
-$lang['testimonials_create_legend']         = 'Basic Information';
-$lang['testimonials_create_field_quote']    = 'Quote';
-$lang['testimonials_create_field_quote_by'] = 'Quote By';
-$lang['testimonials_create_field_order']    = 'Order';
-$lang['testimonials_create_ok']             = '<strong>Success!</strong> Testimonial created successfully';
-$lang['testimonials_create_fail']           = '<strong>Sorry,</strong> there was a problem creating the testimonial.';
-
-// --------------------------------------------------------------------------
-
 //  Edit
-$lang['testimonials_edit_title']          = 'Manage Testimonials';
-$lang['testimonials_edit_legend']         = 'Basic Information';
-$lang['testimonials_edit_field_quote']    = 'Quote';
-$lang['testimonials_edit_field_quote_by'] = 'Quote By';
-$lang['testimonials_edit_field_order']    = 'Order';
-$lang['testimonials_edit_ok']             = '<strong>Success!</strong> Testimonial updated successfully';
-$lang['testimonials_edit_fail']           = '<strong>Sorry,</strong> there was a problem updating the testimonial.';
+$lang['testimonials_edit_title']             = 'Manage Testimonials';
+$lang['testimonials_edit_legend']            = 'Basic Information';
+$lang['testimonials_edit_field_quote']       = 'Quote';
+$lang['testimonials_edit_field_quote_by']    = 'Quote By';
+$lang['testimonials_edit_field_quote_dated'] = 'Quote Date';
+$lang['testimonials_edit_ok']                = '<strong>Success!</strong> Testimonial updated successfully';
+$lang['testimonials_edit_fail']              = '<strong>Sorry,</strong> there was a problem updating the testimonial.';
 
 // --------------------------------------------------------------------------
 

@@ -1,11 +1,10 @@
 <?php
 
-
 /**
  * Manage testimonials
  *
  * @package     Nails
- * @subpackage  module-admin
+ * @subpackage  module-testimonial
  * @category    Controller
  * @author      Nails Dev Team
  * @link
@@ -62,6 +61,7 @@ class Testimonial extends \AdminController
         // --------------------------------------------------------------------------
 
         $this->load->model('testimonial/testimonial_model');
+        $this->lang->load('admin_testimonials');
     }
 
     // --------------------------------------------------------------------------
@@ -79,19 +79,58 @@ class Testimonial extends \AdminController
 
         // --------------------------------------------------------------------------
 
-        //  Page Title
+        //  Set method info
         $this->data['page']->title = lang('testimonials_index_title');
 
         // --------------------------------------------------------------------------
 
-        $this->data['testimonials'] = $this->testimonial_model->get_all();
+        //  Get pagination and search/sort variables
+        $page      = $this->input->get('page')      ? $this->input->get('page')      : 0;
+        $perPage   = $this->input->get('perPage')   ? $this->input->get('perPage')   : 50;
+        $sortOn    = $this->input->get('sortOn')    ? $this->input->get('sortOn')    : 't.created';
+        $sortOrder = $this->input->get('sortOrder') ? $this->input->get('sortOrder') : 'desc';
+        $keywords  = $this->input->get('keywords')  ? $this->input->get('keywords')  : '';
 
         // --------------------------------------------------------------------------
 
-        //  Load views
-        $this->load->view('structure/header', $this->data);
-        $this->load->view('admin/testimonial/index', $this->data);
-        $this->load->view('structure/footer', $this->data);
+        //  Define the sortable columns
+        $sortColumns = array(
+            't.created'  => 'Created Date',
+            't.modified' => 'Modified Date',
+            't.quote_by' => 'Quotee'
+        );
+
+        // --------------------------------------------------------------------------
+
+        //  Define the $data variable for the queries
+        $data = array(
+            'sort'  => array(
+                'column' => $sortOn,
+                'order'  => $sortOrder
+            ),
+            'keywords' => $keywords
+        );
+
+        //  Get the items for the page
+        $totalRows                  = $this->testimonial_model->count_all($data);
+        $this->data['testimonials'] = $this->testimonial_model->get_all($page, $perPage, $data);
+
+        //  Set Search and Pagination objects for the view
+        $this->data['search']     = \Nails\Admin\Helper::searchObject($sortColumns, $sortOn, $sortOrder, $perPage, $keywords);
+        $this->data['pagination'] = \Nails\Admin\Helper::paginationObject($page, $perPage, $totalRows);
+
+        //  Add a header button
+        if (userHasPermission('admin.testimonial:0.can_create')) {
+
+             \Nails\Admin\Helper::addHeaderButton(
+                'admin/testimonial/testimonial/create',
+                lang('testimonials_nav_create')
+            );
+        }
+
+        // --------------------------------------------------------------------------
+
+        \Nails\Admin\Helper::loadView('index');
     }
 
     // --------------------------------------------------------------------------
@@ -120,7 +159,6 @@ class Testimonial extends \AdminController
 
             $this->form_validation->set_rules('quote', '', 'xss_clean|required');
             $this->form_validation->set_rules('quote_by', '', 'xss_clean|required');
-            $this->form_validation->set_rules('order', '', 'xss_clean');
 
             $this->form_validation->set_message('required', lang('fv_required'));
 
@@ -129,12 +167,11 @@ class Testimonial extends \AdminController
                 $data             = array();
                 $data['quote']    = $this->input->post('quote');
                 $data['quote_by'] = $this->input->post('quote_by');
-                $data['order']    = (int) $this->input->post('order');
 
                 if ($this->testimonial_model->create($data)) {
 
                     $this->session->set_flashdata('success', lang('testimonials_create_ok'));
-                    redirect('admin/testimonial');
+                    redirect('admin/testimonial/testimonial/index');
 
                 } else {
 
@@ -150,9 +187,7 @@ class Testimonial extends \AdminController
         // --------------------------------------------------------------------------
 
         //  Load views
-        $this->load->view('structure/header', $this->data);
-        $this->load->view('admin/testimonial/create', $this->data);
-        $this->load->view('structure/footer', $this->data);
+        \Nails\Admin\Helper::loadView('edit');
     }
 
     // --------------------------------------------------------------------------
@@ -170,12 +205,12 @@ class Testimonial extends \AdminController
 
         // --------------------------------------------------------------------------
 
-        $this->data['testimonial'] = $this->testimonial_model->get_by_id($this->uri->segment(4));
+        $this->data['testimonial'] = $this->testimonial_model->get_by_id($this->uri->segment(5));
 
         if (!$this->data['testimonial']) {
 
             $this->session->set_flashdata('error', lang('testimonials_common_bad_id'));
-            redirect('admin/testimonial');
+            redirect('admin/testimonial/testimonial/index');
         }
 
         // --------------------------------------------------------------------------
@@ -191,7 +226,6 @@ class Testimonial extends \AdminController
 
             $this->form_validation->set_rules('quote', '', 'xss_clean|required');
             $this->form_validation->set_rules('quote_by', '', 'xss_clean|required');
-            $this->form_validation->set_rules('order', '', 'xss_clean');
 
             $this->form_validation->set_message('required', lang('fv_required'));
 
@@ -200,12 +234,11 @@ class Testimonial extends \AdminController
                 $data             = array();
                 $data['quote']    = $this->input->post('quote');
                 $data['quote_by'] = $this->input->post('quote_by');
-                $data['order']    = (int) $this->input->post('order');
 
                 if ($this->testimonial_model->update($this->data['testimonial']->id, $data)) {
 
                     $this->session->set_flashdata('success', lang('testimonials_edit_ok'));
-                    redirect('admin/testimonial');
+                    redirect('admin/testimonial/testimonial/index');
 
                 } else {
 
@@ -221,9 +254,7 @@ class Testimonial extends \AdminController
         // --------------------------------------------------------------------------
 
         //  Load views
-        $this->load->view('structure/header', $this->data);
-        $this->load->view('admin/testimonial/edit', $this->data);
-        $this->load->view('structure/footer', $this->data);
+        \Nails\Admin\Helper::loadView('edit');
     }
 
     // --------------------------------------------------------------------------
@@ -241,12 +272,12 @@ class Testimonial extends \AdminController
 
         // --------------------------------------------------------------------------
 
-        $testimonial = $this->testimonial_model->get_by_id($this->uri->segment(4));
+        $testimonial = $this->testimonial_model->get_by_id($this->uri->segment(5));
 
         if (!$testimonial) {
 
             $this->session->set_flashdata('error', lang('testimonials_common_bad_id'));
-            redirect('admin/testimonial');
+            redirect('admin/testimonial/testimonial/index');
         }
 
         // --------------------------------------------------------------------------
@@ -262,6 +293,6 @@ class Testimonial extends \AdminController
 
         // --------------------------------------------------------------------------
 
-        redirect('admin/testimonial');
+        redirect('admin/testimonial/testimonial/index');
     }
 }
