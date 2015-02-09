@@ -19,7 +19,7 @@ $lang['testimonials_nav_create'] = 'Add Testimonial';
 // --------------------------------------------------------------------------
 
 //  Common
-$lang['testimonials_common_bad_id'] = '<strong>Sorry,</strong> I could not find a testimonial by that ID.';
+$lang['testimonials_common_bad_id'] = 'I could not find a testimonial by that ID.';
 
 // --------------------------------------------------------------------------
 
@@ -38,11 +38,11 @@ $lang['testimonials_edit_legend']            = 'Basic Information';
 $lang['testimonials_edit_field_quote']       = 'Quote';
 $lang['testimonials_edit_field_quote_by']    = 'Quote By';
 $lang['testimonials_edit_field_quote_dated'] = 'Quote Date';
-$lang['testimonials_edit_ok']                = '<strong>Success!</strong> Testimonial updated successfully';
-$lang['testimonials_edit_fail']              = '<strong>Sorry,</strong> there was a problem updating the testimonial.';
+$lang['testimonials_edit_ok']                = 'Testimonial updated successfully';
+$lang['testimonials_edit_fail']              = 'There was a problem updating the testimonial.';
 
 // --------------------------------------------------------------------------
 
 //  Delete
-$lang['testimonials_delete_ok']   = '<strong>Success!</strong> Testimonial deleted successfully';
-$lang['testimonials_delete_fail'] = '<strong>Sorry,</strong> there was a problem deleting the testimonial.';
+$lang['testimonials_delete_ok']   = 'Testimonial deleted successfully';
+$lang['testimonials_delete_fail'] = 'There was a problem deleting the testimonial.';
