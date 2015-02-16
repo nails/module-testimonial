@@ -35,13 +35,19 @@ class NAILS_Testimonial_model extends NAILS_Model
     {
         if (!empty($data['keywords'])) {
 
-            if (!isset($data['or_like'])) {
+            if (empty($data['or_like'])) {
 
                 $data['or_like'] = array();
             }
 
-            $data['or_like'][] = array('t.quote', $data['keywords']);
-            $data['or_like'][] = array('t.quote_by', $data['keywords']);
+            $data['or_like'][] = array(
+                'column' => 't.quote',
+                'value'  => $data['keywords']
+            );
+            $data['or_like'][] = array(
+                'column' => 't.quote_by',
+                'value'  => $data['keywords']
+            );
         }
 
         parent::_getcount_common($data, $_caller);
