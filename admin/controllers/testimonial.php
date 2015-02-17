@@ -30,21 +30,16 @@ class Testimonial extends \AdminController
 
     /**
      * Returns an array of extra permissions for this controller
-     * @param  string $classIndex The class_index value, used when multiple admin instances are available
      * @return array
      */
-    public static function permissions($classIndex = null)
+    public static function permissions()
     {
-        $permissions = parent::permissions($classIndex);
+        $permissions = parent::permissions();
 
-        // --------------------------------------------------------------------------
-
-        $permissions['can_manage'] = 'Can manage testimonials';
-        $permissions['can_create'] = 'Can create testimonials';
-        $permissions['can_edit']   = 'Can edit testimonials';
-        $permissions['can_delete'] = 'Can delete testimonials';
-
-        // --------------------------------------------------------------------------
+        $permissions['manage'] = 'Can manage testimonials';
+        $permissions['create'] = 'Can create testimonials';
+        $permissions['edit']   = 'Can edit testimonials';
+        $permissions['delete'] = 'Can delete testimonials';
 
         return $permissions;
     }
