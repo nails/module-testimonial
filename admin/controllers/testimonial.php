@@ -20,10 +20,13 @@ class Testimonial extends \AdminController
      */
     public static function announce()
     {
-        $navGroup = new \Nails\Admin\Nav('Testimonials');
-        $navGroup->addMethod('Manage Testimonials');
+        if (userHasPermission('admin:testimonial:testimonial:manage')) {
 
-        return $navGroup;
+            $navGroup = new \Nails\Admin\Nav('Testimonials', 'fa-comments');
+            $navGroup->addAction('Manage Testimonials');
+
+            return $navGroup;
+        }
     }
 
     // --------------------------------------------------------------------------
@@ -67,7 +70,7 @@ class Testimonial extends \AdminController
      */
     public function index()
     {
-        if (!userHasPermission('admin.testimonial:0.can_manage')) {
+        if (!userHasPermission('admin:testimonial:testimonial:manage')) {
 
             unauthorised();
         }
@@ -114,7 +117,7 @@ class Testimonial extends \AdminController
         $this->data['pagination'] = \Nails\Admin\Helper::paginationObject($page, $perPage, $totalRows);
 
         //  Add a header button
-        if (userHasPermission('admin.testimonial:0.can_create')) {
+        if (userHasPermission('admin:testimonial:testimonial:create')) {
 
              \Nails\Admin\Helper::addHeaderButton(
                 'admin/testimonial/testimonial/create',
@@ -135,7 +138,7 @@ class Testimonial extends \AdminController
      */
     public function create()
     {
-        if (!userHasPermission('admin.testimonial:0.can_create')) {
+        if (!userHasPermission('admin:testimonial:testimonial:create')) {
 
             unauthorised();
         }
@@ -192,7 +195,7 @@ class Testimonial extends \AdminController
      */
     public function edit()
     {
-        if (!userHasPermission('admin.testimonial:0.can_edit')) {
+        if (!userHasPermission('admin:testimonial:testimonial:edit')) {
 
             unauthorised();
         }
@@ -259,7 +262,7 @@ class Testimonial extends \AdminController
      */
     public function delete()
     {
-        if (!userHasPermission('admin.testimonial:0.can_delete')) {
+        if (!userHasPermission('admin:testimonial:testimonial:delete')) {
 
             unauthorised();
         }
