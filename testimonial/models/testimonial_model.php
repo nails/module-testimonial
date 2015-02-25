@@ -18,8 +18,8 @@ class NAILS_Testimonial_model extends NAILS_Model
     public function __construct()
     {
         parent::__construct();
-        $this->_table = NAILS_DB_PREFIX . 'testimonial';
-        $this->_table_prefix = 't';
+        $this->table = NAILS_DB_PREFIX . 'testimonial';
+        $this->tablePrefix = 't';
     }
 
     // --------------------------------------------------------------------------
