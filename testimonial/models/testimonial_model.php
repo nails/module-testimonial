@@ -5,7 +5,7 @@
  *
  * @package     Nails
  * @subpackage  module-testimonial
- * @category    Controller
+ * @category    Model
  * @author      Nails Dev Team
  * @link
  */

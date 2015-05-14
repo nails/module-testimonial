@@ -4,7 +4,7 @@
  * English language strings for Admin Testimonials
  *
  * @package     Nails
- * @subpackage  module-admin
+ * @subpackage  module-faq
  * @category    Language
  * @author      Nails Dev Team
  * @link
