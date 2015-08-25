@@ -1,12 +1,6 @@
 {
     "name": "nailsapp/module-testimonial",
-    "keywords":
-    [
-        "Nails",
-        "Shed Collective",
-        "CodeIgniter",
-        "Testimonial Module"
-    ],
+    "keywords": ["Nails", "Shed Collective", "CodeIgniter", "Testimonial Module"],
     "homepage": "http://nailsapp.co.uk/modules/testimonial",
     "description": "This is the \"Testimonial\" module for Nails.",
     "license": "MIT",
