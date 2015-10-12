@@ -12,6 +12,8 @@
 
 namespace Nails\Admin\Testimonial;
 
+use Nails\Factory;
+
 class Testimonial extends \AdminController
 {
     /**
@@ -58,7 +60,6 @@ class Testimonial extends \AdminController
 
         // --------------------------------------------------------------------------
 
-        $this->load->model('testimonial/testimonial_model');
         $this->lang->load('admin_testimonials');
     }
 
@@ -74,6 +75,10 @@ class Testimonial extends \AdminController
 
             unauthorised();
         }
+
+        // --------------------------------------------------------------------------
+
+        $oTestimonialModel = Factory::model('Testimonial', 'nailsapp/module-testimonial');
 
         // --------------------------------------------------------------------------
 
@@ -109,8 +114,8 @@ class Testimonial extends \AdminController
         );
 
         //  Get the items for the page
-        $totalRows                  = $this->testimonial_model->count_all($data);
-        $this->data['testimonials'] = $this->testimonial_model->get_all($page, $perPage, $data);
+        $totalRows                  = $oTestimonialModel->count_all($data);
+        $this->data['testimonials'] = $oTestimonialModel->get_all($page, $perPage, $data);
 
         //  Set Search and Pagination objects for the view
         $this->data['search']     = \Nails\Admin\Helper::searchObject(true, $sortColumns, $sortOn, $sortOrder, $perPage, $keywords);
@@ -156,16 +161,20 @@ class Testimonial extends \AdminController
 
             $this->form_validation->set_rules('quote', '', 'xss_clean|required');
             $this->form_validation->set_rules('quote_by', '', 'xss_clean|required');
+            $this->form_validation->set_rules('quote_dated', '', 'xss_clean|required');
 
             $this->form_validation->set_message('required', lang('fv_required'));
 
             if ($this->form_validation->run()) {
 
-                $data             = array();
-                $data['quote']    = $this->input->post('quote');
-                $data['quote_by'] = $this->input->post('quote_by');
+                $data                = array();
+                $data['quote']       = $this->input->post('quote');
+                $data['quote_by']    = $this->input->post('quote_by');
+                $data['quote_dated'] = $this->input->post('quote_dated');
 
-                if ($this->testimonial_model->create($data)) {
+                $oTestimonialModel = Factory::model('Testimonial', 'nailsapp/module-testimonial');
+
+                if ($oTestimonialModel->create($data)) {
 
                     $this->session->set_flashdata('success', lang('testimonials_create_ok'));
                     redirect('admin/testimonial/testimonial/index');
@@ -202,7 +211,9 @@ class Testimonial extends \AdminController
 
         // --------------------------------------------------------------------------
 
-        $this->data['testimonial'] = $this->testimonial_model->get_by_id($this->uri->segment(5));
+        $oTestimonialModel = Factory::model('Testimonial', 'nailsapp/module-testimonial');
+
+        $this->data['testimonial'] = $oTestimonialModel->get_by_id($this->uri->segment(5));
 
         if (!$this->data['testimonial']) {
 
@@ -223,16 +234,18 @@ class Testimonial extends \AdminController
 
             $this->form_validation->set_rules('quote', '', 'xss_clean|required');
             $this->form_validation->set_rules('quote_by', '', 'xss_clean|required');
+            $this->form_validation->set_rules('quote_dated', '', 'xss_clean|required');
 
             $this->form_validation->set_message('required', lang('fv_required'));
 
             if ($this->form_validation->run()) {
 
-                $data             = array();
-                $data['quote']    = $this->input->post('quote');
-                $data['quote_by'] = $this->input->post('quote_by');
+                $data                = array();
+                $data['quote']       = $this->input->post('quote');
+                $data['quote_by']    = $this->input->post('quote_by');
+                $data['quote_dated'] = $this->input->post('quote_dated');
 
-                if ($this->testimonial_model->update($this->data['testimonial']->id, $data)) {
+                if ($oTestimonialModel->update($this->data['testimonial']->id, $data)) {
 
                     $this->session->set_flashdata('success', lang('testimonials_edit_ok'));
                     redirect('admin/testimonial/testimonial/index');
@@ -269,7 +282,9 @@ class Testimonial extends \AdminController
 
         // --------------------------------------------------------------------------
 
-        $testimonial = $this->testimonial_model->get_by_id($this->uri->segment(5));
+        $oTestimonialModel = Factory::model('Testimonial', 'nailsapp/module-testimonial');
+
+        $testimonial = $oTestimonialModel->get_by_id($this->uri->segment(5));
 
         if (!$testimonial) {
 
@@ -279,7 +294,7 @@ class Testimonial extends \AdminController
 
         // --------------------------------------------------------------------------
 
-        if ($this->testimonial_model->delete($testimonial->id)) {
+        if ($oTestimonialModel->delete($testimonial->id)) {
 
             $this->session->set_flashdata('success', lang('testimonials_delete_ok'));
 
