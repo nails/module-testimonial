@@ -13,8 +13,9 @@
 namespace Nails\Admin\Testimonial;
 
 use Nails\Factory;
+use Nails\Admin\Controller\Base;
 
-class Testimonial extends \AdminController
+class Testimonial extends Base
 {
     /**
      * Announces this controller's navGroups
