@@ -13,6 +13,7 @@
 namespace Nails\Admin\Testimonial;
 
 use Nails\Factory;
+use Nails\Admin\Helper;
 use Nails\Admin\Controller\Base;
 
 class Testimonial extends Base
@@ -119,13 +120,13 @@ class Testimonial extends Base
         $this->data['testimonials'] = $oTestimonialModel->get_all($page, $perPage, $data);
 
         //  Set Search and Pagination objects for the view
-        $this->data['search']     = \Nails\Admin\Helper::searchObject(true, $sortColumns, $sortOn, $sortOrder, $perPage, $keywords);
-        $this->data['pagination'] = \Nails\Admin\Helper::paginationObject($page, $perPage, $totalRows);
+        $this->data['search']     = Helper::searchObject(true, $sortColumns, $sortOn, $sortOrder, $perPage, $keywords);
+        $this->data['pagination'] = Helper::paginationObject($page, $perPage, $totalRows);
 
         //  Add a header button
         if (userHasPermission('admin:testimonial:testimonial:create')) {
 
-             \Nails\Admin\Helper::addHeaderButton(
+             Helper::addHeaderButton(
                 'admin/testimonial/testimonial/create',
                 lang('testimonials_nav_create')
             );
@@ -133,7 +134,7 @@ class Testimonial extends Base
 
         // --------------------------------------------------------------------------
 
-        \Nails\Admin\Helper::loadView('index');
+        Helper::loadView('index');
     }
 
     // --------------------------------------------------------------------------
@@ -194,7 +195,7 @@ class Testimonial extends Base
         // --------------------------------------------------------------------------
 
         //  Load views
-        \Nails\Admin\Helper::loadView('edit');
+        Helper::loadView('edit');
     }
 
     // --------------------------------------------------------------------------
@@ -265,7 +266,7 @@ class Testimonial extends Base
         // --------------------------------------------------------------------------
 
         //  Load views
-        \Nails\Admin\Helper::loadView('edit');
+        Helper::loadView('edit');
     }
 
     // --------------------------------------------------------------------------
