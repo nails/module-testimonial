@@ -3,7 +3,11 @@
 return array(
     'models' => array(
         'Testimonial' => function () {
-            return new \Nails\Testimonial\Model\Testimonial();
+            if (class_exists('\App\Testimonial\Model\Testimonial')) {
+                return new \App\Testimonial\Model\Testimonial();
+            } else {
+                return new \Nails\Testimonial\Model\Testimonial();
+            }
         }
     )
 );
