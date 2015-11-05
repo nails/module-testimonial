@@ -38,7 +38,7 @@
 
                                 if (userHasPermission('admin:testimonial:testimonial:delete')) :
 
-                                    echo anchor('admin/testimonial/testimonial/delete/' . $testimonial->id, lang('action_delete'), 'class="awesome red small confirm" data-title="Are you sure?" data-body="You cannot undo this action"');
+                                    echo anchor('admin/testimonial/testimonial/delete/' . $testimonial->id, lang('action_delete'), 'class="awesome red small confirm" data-body="You cannot undo this action"');
 
                                 endif;
 
