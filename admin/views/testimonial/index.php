@@ -4,8 +4,8 @@
     </p>
     <?php
 
-        echo \Nails\Admin\Helper::loadSearch($search);
-        echo \Nails\Admin\Helper::loadPagination($pagination);
+        echo adminHelper('loadSearch', $search);
+        echo adminHelper('loadPagination', $pagination);
 
     ?>
     <div class="table-responsive">
@@ -61,7 +61,7 @@
     </div>
     <?php
 
-        echo \Nails\Admin\Helper::loadPagination($pagination);
+        echo adminHelper('loadPagination', $pagination);
 
     ?>
 </div>

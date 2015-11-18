@@ -26,7 +26,9 @@ class Testimonial extends Base
     {
         if (userHasPermission('admin:testimonial:testimonial:manage')) {
 
-            $navGroup = new \Nails\Admin\Nav('Testimonials', 'fa-comments');
+            $navGroup = Factory::factory('Nav', 'nailsapp/module-admin');
+            $navGroup->setLabel('Testimonials');
+            $navGroup->setIcon('fa-comments');
             $navGroup->addAction('Manage Testimonials');
 
             return $navGroup;
