@@ -118,8 +118,8 @@ class Testimonial extends Base
         );
 
         //  Get the items for the page
-        $totalRows                  = $oTestimonialModel->count_all($data);
-        $this->data['testimonials'] = $oTestimonialModel->get_all($page, $perPage, $data);
+        $totalRows                  = $oTestimonialModel->countAll($data);
+        $this->data['testimonials'] = $oTestimonialModel->getAll($page, $perPage, $data);
 
         //  Set Search and Pagination objects for the view
         $this->data['search']     = Helper::searchObject(true, $sortColumns, $sortOn, $sortOrder, $perPage, $keywords);
@@ -128,7 +128,7 @@ class Testimonial extends Base
         //  Add a header button
         if (userHasPermission('admin:testimonial:testimonial:create')) {
 
-             Helper::addHeaderButton(
+            Helper::addHeaderButton(
                 'admin/testimonial/testimonial/create',
                 lang('testimonials_nav_create')
             );
@@ -216,7 +216,7 @@ class Testimonial extends Base
 
         $oTestimonialModel = Factory::model('Testimonial', 'nailsapp/module-testimonial');
 
-        $this->data['testimonial'] = $oTestimonialModel->get_by_id($this->uri->segment(5));
+        $this->data['testimonial'] = $oTestimonialModel->getById($this->uri->segment(5));
 
         if (!$this->data['testimonial']) {
 
@@ -286,7 +286,7 @@ class Testimonial extends Base
 
         $oTestimonialModel = Factory::model('Testimonial', 'nailsapp/module-testimonial');
 
-        $testimonial = $oTestimonialModel->get_by_id($this->uri->segment(5));
+        $testimonial = $oTestimonialModel->getById($this->uri->segment(5));
 
         if (!$testimonial) {
 
