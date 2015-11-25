@@ -32,13 +32,21 @@
 
                                 if (userHasPermission('admin:testimonial:testimonial:edit')) :
 
-                                    echo anchor('admin/testimonial/testimonial/edit/' . $testimonial->id, lang('action_edit'), 'class="awesome small"');
+                                    echo anchor(
+                                        'admin/testimonial/testimonial/edit/' . $testimonial->id,
+                                        lang('action_edit'),
+                                        'class="btn btn-xs btn-primary"'
+                                    );
 
                                 endif;
 
                                 if (userHasPermission('admin:testimonial:testimonial:delete')) :
 
-                                    echo anchor('admin/testimonial/testimonial/delete/' . $testimonial->id, lang('action_delete'), 'class="awesome red small confirm" data-body="You cannot undo this action"');
+                                    echo anchor(
+                                        'admin/testimonial/testimonial/delete/' . $testimonial->id,
+                                        lang('action_delete'),
+                                        'class="btn btn-xs btn-danger confirm" data-body="You cannot undo this action"'
+                                    );
 
                                 endif;
 
