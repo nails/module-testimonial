@@ -42,7 +42,8 @@
         "nails" :
         {
             "moduleName": "testimonial",
-            "type": "module"
+            "type": "module",
+            "namespace": "Nails\\Testimonial\\"
         }
     }
 }
