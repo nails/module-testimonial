@@ -38,9 +38,7 @@ class Testimonial extends Base
     protected function getCountCommon($data = array())
     {
         if (!empty($data['keywords'])) {
-
             if (empty($data['or_like'])) {
-
                 $data['or_like'] = array();
             }
 
