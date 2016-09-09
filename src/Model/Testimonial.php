@@ -23,7 +23,7 @@ class Testimonial extends Base
     {
         parent::__construct();
         $this->table = NAILS_DB_PREFIX . 'testimonial';
-        $this->tablePrefix = 't';
+        $this->tableAlias = 't';
         $this->defaultSortColumn = 'quote';
     }
 
