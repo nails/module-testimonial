@@ -162,9 +162,9 @@ class Testimonial extends BaseAdmin
         if ($this->input->post()) {
 
             $oFormValidation = Factory::service('FormValidation');
-            $oFormValidation->set_rules('quote', '', 'xss_clean|required');
-            $oFormValidation->set_rules('quote_by', '', 'xss_clean|required');
-            $oFormValidation->set_rules('quote_dated', '', 'xss_clean|required');
+            $oFormValidation->set_rules('quote', '', 'required');
+            $oFormValidation->set_rules('quote_by', '', 'required');
+            $oFormValidation->set_rules('quote_dated', '', 'required');
 
             $oFormValidation->set_message('required', lang('fv_required'));
 
@@ -234,9 +234,9 @@ class Testimonial extends BaseAdmin
         if ($this->input->post()) {
 
             $oFormValidation = Factory::service('FormValidation');
-            $oFormValidation->set_rules('quote', '', 'xss_clean|required');
-            $oFormValidation->set_rules('quote_by', '', 'xss_clean|required');
-            $oFormValidation->set_rules('quote_dated', '', 'xss_clean|required');
+            $oFormValidation->set_rules('quote', '', 'required');
+            $oFormValidation->set_rules('quote_by', '', 'required');
+            $oFormValidation->set_rules('quote_dated', '', 'required');
 
             $oFormValidation->set_message('required', lang('fv_required'));
 
