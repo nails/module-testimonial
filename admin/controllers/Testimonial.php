@@ -26,7 +26,7 @@ class Testimonial extends BaseAdmin
     {
         if (userHasPermission('admin:testimonial:testimonial:manage')) {
 
-            $oNavGroup = Factory::factory('Nav', 'nailsapp/module-admin');
+            $oNavGroup = Factory::factory('Nav', 'nails/module-admin');
             $oNavGroup->setLabel('Testimonials');
             $oNavGroup->setIcon('fa-comments');
             $oNavGroup->addAction('Manage Testimonials');
@@ -82,7 +82,7 @@ class Testimonial extends BaseAdmin
 
         // --------------------------------------------------------------------------
 
-        $oTestimonialModel = Factory::model('Testimonial', 'nailsapp/module-testimonial');
+        $oTestimonialModel = Factory::model('Testimonial', 'nails/module-testimonial');
 
         // --------------------------------------------------------------------------
 
@@ -175,7 +175,7 @@ class Testimonial extends BaseAdmin
                 $data['quote_by']    = $this->input->post('quote_by');
                 $data['quote_dated'] = $this->input->post('quote_dated');
 
-                $oTestimonialModel = Factory::model('Testimonial', 'nailsapp/module-testimonial');
+                $oTestimonialModel = Factory::model('Testimonial', 'nails/module-testimonial');
 
                 if ($oTestimonialModel->create($data)) {
 
@@ -214,7 +214,7 @@ class Testimonial extends BaseAdmin
 
         // --------------------------------------------------------------------------
 
-        $oTestimonialModel = Factory::model('Testimonial', 'nailsapp/module-testimonial');
+        $oTestimonialModel = Factory::model('Testimonial', 'nails/module-testimonial');
 
         $this->data['testimonial'] = $oTestimonialModel->getById($this->uri->segment(5));
 
@@ -284,7 +284,7 @@ class Testimonial extends BaseAdmin
 
         // --------------------------------------------------------------------------
 
-        $oTestimonialModel = Factory::model('Testimonial', 'nailsapp/module-testimonial');
+        $oTestimonialModel = Factory::model('Testimonial', 'nails/module-testimonial');
 
         $testimonial = $oTestimonialModel->getById($this->uri->segment(5));
 

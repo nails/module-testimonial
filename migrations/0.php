@@ -6,7 +6,7 @@
  * Finalised:   09/01/2015
  */
 
-namespace Nails\Database\Migration\Nailsapp\ModuleTestimonial;
+namespace Nails\Database\Migration\Nails\ModuleTestimonial;
 
 use Nails\Common\Console\Migrate\Base;
 

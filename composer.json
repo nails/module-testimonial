@@ -1,5 +1,5 @@
 {
-    "name": "nailsapp/module-testimonial",
+    "name": "nails/module-testimonial",
     "keywords": ["Nails", "Shed Collective", "CodeIgniter", "Testimonial Module"],
     "homepage": "http://nailsapp.co.uk/modules/testimonial",
     "description": "This is the \"Testimonial\" module for Nails.",
@@ -27,7 +27,7 @@
     "prefer-stable": true,
     "require":
     {
-        "nailsapp/common": "dev-develop"
+        "nails/common": "dev-develop"
     },
     "require-dev":
     {
