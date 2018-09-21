@@ -210,10 +210,11 @@ class Testimonial extends BaseAdmin
 
         // --------------------------------------------------------------------------
 
+        $oUri              = Factory::service('Uri');
         $oSession          = Factory::service('Session', 'nails/module-auth');
         $oTestimonialModel = Factory::model('Testimonial', 'nails/module-testimonial');
 
-        $this->data['testimonial'] = $oTestimonialModel->getById($this->uri->segment(5));
+        $this->data['testimonial'] = $oTestimonialModel->getById($oUri->segment(5));
 
         if (!$this->data['testimonial']) {
             $oSession->setFlashData('error', lang('testimonials_common_bad_id'));
@@ -279,10 +280,11 @@ class Testimonial extends BaseAdmin
 
         // --------------------------------------------------------------------------
 
+        $oUri              = Factory::service('Uri');
         $oSession          = Factory::service('Session', 'nails/module-auth');
         $oTestimonialModel = Factory::model('Testimonial', 'nails/module-testimonial');
 
-        $testimonial = $oTestimonialModel->getById($this->uri->segment(5));
+        $testimonial = $oTestimonialModel->getById($oUri->segment(5));
 
         if (!$testimonial) {
             $oSession->setFlashData('error', lang('testimonials_common_bad_id'));
