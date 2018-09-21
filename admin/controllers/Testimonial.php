@@ -43,14 +43,14 @@ class Testimonial extends BaseAdmin
      */
     public static function permissions()
     {
-        $permissions = parent::permissions();
+        $aPermissions = parent::permissions();
 
-        $permissions['manage'] = 'Can manage testimonials';
-        $permissions['create'] = 'Can create testimonials';
-        $permissions['edit']   = 'Can edit testimonials';
-        $permissions['delete'] = 'Can delete testimonials';
+        $aPermissions['manage'] = 'Can manage testimonials';
+        $aPermissions['create'] = 'Can create testimonials';
+        $aPermissions['edit']   = 'Can edit testimonials';
+        $aPermissions['delete'] = 'Can delete testimonials';
 
-        return $permissions;
+        return $aPermissions;
     }
 
     // --------------------------------------------------------------------------
@@ -61,9 +61,6 @@ class Testimonial extends BaseAdmin
     public function __construct()
     {
         parent::__construct();
-
-        // --------------------------------------------------------------------------
-
         $this->lang->load('admin_testimonials');
     }
 
@@ -76,7 +73,6 @@ class Testimonial extends BaseAdmin
     public function index()
     {
         if (!userHasPermission('admin:testimonial:testimonial:manage')) {
-
             unauthorised();
         }
 
@@ -92,38 +88,39 @@ class Testimonial extends BaseAdmin
         // --------------------------------------------------------------------------
 
         //  Get pagination and search/sort variables
-        $page      = $this->input->get('page')      ? $this->input->get('page')      : 0;
-        $perPage   = $this->input->get('perPage')   ? $this->input->get('perPage')   : 50;
-        $sortOn    = $this->input->get('sortOn')    ? $this->input->get('sortOn')    : 't.created';
-        $sortOrder = $this->input->get('sortOrder') ? $this->input->get('sortOrder') : 'desc';
-        $keywords  = $this->input->get('keywords')  ? $this->input->get('keywords')  : '';
+        $oInput     = Factory::service('Input');
+        $iPage      = (int) $oInput->get('page') ?: 0;
+        $iPerPage   = (int) $oInput->get('perPage') ?: 50;
+        $sSortOn    = $oInput->get('sortOn') ?: 't.created';
+        $sSortOrder = $oInput->get('sortOrder') ?: 'desc';
+        $sKeywords  = $oInput->get('keywords') ?: '';
 
         // --------------------------------------------------------------------------
 
         //  Define the sortable columns
-        $sortColumns = array(
+        $sortColumns = [
             't.created'  => 'Created Date',
             't.modified' => 'Modified Date',
-            't.quote_by' => 'Quotee'
-        );
+            't.quote_by' => 'Quotee',
+        ];
 
         // --------------------------------------------------------------------------
 
-        //  Define the $data variable for the queries
-        $data = array(
-            'sort' => array(
-                array($sortOn, $sortOrder)
-            ),
-            'keywords' => $keywords
-        );
+        //  Define the $aData variable for the queries
+        $aData = [
+            'sort'     => [
+                [$sSortOn, $sSortOrder],
+            ],
+            'keywords' => $sKeywords,
+        ];
 
         //  Get the items for the page
-        $totalRows                  = $oTestimonialModel->countAll($data);
-        $this->data['testimonials'] = $oTestimonialModel->getAll($page, $perPage, $data);
+        $totalRows                  = $oTestimonialModel->countAll($aData);
+        $this->data['testimonials'] = $oTestimonialModel->getAll($iPage, $iPerPage, $aData);
 
         //  Set Search and Pagination objects for the view
-        $this->data['search']     = Helper::searchObject(true, $sortColumns, $sortOn, $sortOrder, $perPage, $keywords);
-        $this->data['pagination'] = Helper::paginationObject($page, $perPage, $totalRows);
+        $this->data['search']     = Helper::searchObject(true, $sortColumns, $sSortOn, $sSortOrder, $iPerPage, $sKeywords);
+        $this->data['pagination'] = Helper::paginationObject($iPage, $iPerPage, $totalRows);
 
         //  Add a header button
         if (userHasPermission('admin:testimonial:testimonial:create')) {
@@ -148,7 +145,6 @@ class Testimonial extends BaseAdmin
     public function create()
     {
         if (!userHasPermission('admin:testimonial:testimonial:create')) {
-
             unauthorised();
         }
 
@@ -159,7 +155,8 @@ class Testimonial extends BaseAdmin
 
         // --------------------------------------------------------------------------
 
-        if ($this->input->post()) {
+        $oInput = Factory::service('Input');
+        if ($oInput->post()) {
 
             $oFormValidation = Factory::service('FormValidation');
             $oFormValidation->set_rules('quote', '', 'required');
@@ -170,25 +167,25 @@ class Testimonial extends BaseAdmin
 
             if ($oFormValidation->run()) {
 
-                $data                = array();
-                $data['quote']       = $this->input->post('quote');
-                $data['quote_by']    = $this->input->post('quote_by');
-                $data['quote_dated'] = $this->input->post('quote_dated');
+                $aData = [
+                    'quote'       => $oInput->post('quote'),
+                    'quote_by'    => $oInput->post('quote_by'),
+                    'quote_dated' => $oInput->post('quote_dated'),
+                ];
 
                 $oTestimonialModel = Factory::model('Testimonial', 'nails/module-testimonial');
 
-                if ($oTestimonialModel->create($data)) {
+                if ($oTestimonialModel->create($aData)) {
 
-                    $this->session->set_flashdata('success', lang('testimonials_create_ok'));
+                    $oSession = Factory::service('Session', 'nails/module-auth');
+                    $oSession->setFlashData('success', lang('testimonials_create_ok'));
                     redirect('admin/testimonial/testimonial/index');
 
                 } else {
-
                     $this->data['error'] = lang('testimonials_create_fail');
                 }
 
             } else {
-
                 $this->data['error'] = lang('fv_there_were_errors');
             }
         }
@@ -208,19 +205,18 @@ class Testimonial extends BaseAdmin
     public function edit()
     {
         if (!userHasPermission('admin:testimonial:testimonial:edit')) {
-
             unauthorised();
         }
 
         // --------------------------------------------------------------------------
 
+        $oSession          = Factory::service('Session', 'nails/module-auth');
         $oTestimonialModel = Factory::model('Testimonial', 'nails/module-testimonial');
 
         $this->data['testimonial'] = $oTestimonialModel->getById($this->uri->segment(5));
 
         if (!$this->data['testimonial']) {
-
-            $this->session->set_flashdata('error', lang('testimonials_common_bad_id'));
+            $oSession->setFlashData('error', lang('testimonials_common_bad_id'));
             redirect('admin/testimonial/testimonial/index');
         }
 
@@ -231,7 +227,8 @@ class Testimonial extends BaseAdmin
 
         // --------------------------------------------------------------------------
 
-        if ($this->input->post()) {
+        $oInput = Factory::service('Input');
+        if ($oInput->post()) {
 
             $oFormValidation = Factory::service('FormValidation');
             $oFormValidation->set_rules('quote', '', 'required');
@@ -242,23 +239,22 @@ class Testimonial extends BaseAdmin
 
             if ($oFormValidation->run()) {
 
-                $data                = array();
-                $data['quote']       = $this->input->post('quote');
-                $data['quote_by']    = $this->input->post('quote_by');
-                $data['quote_dated'] = $this->input->post('quote_dated');
+                $aData = [
+                    'quote'       => $oInput->post('quote'),
+                    'quote_by'    => $oInput->post('quote_by'),
+                    'quote_dated' => $oInput->post('quote_dated'),
+                ];
 
-                if ($oTestimonialModel->update($this->data['testimonial']->id, $data)) {
+                if ($oTestimonialModel->update($this->data['testimonial']->id, $aData)) {
 
-                    $this->session->set_flashdata('success', lang('testimonials_edit_ok'));
+                    $oSession->setFlashData('success', lang('testimonials_edit_ok'));
                     redirect('admin/testimonial/testimonial/index');
 
                 } else {
-
                     $this->data['error'] = lang('testimonials_edit_fail');
                 }
 
             } else {
-
                 $this->data['error'] = lang('fv_there_were_errors');
             }
         }
@@ -278,31 +274,27 @@ class Testimonial extends BaseAdmin
     public function delete()
     {
         if (!userHasPermission('admin:testimonial:testimonial:delete')) {
-
             unauthorised();
         }
 
         // --------------------------------------------------------------------------
 
+        $oSession          = Factory::service('Session', 'nails/module-auth');
         $oTestimonialModel = Factory::model('Testimonial', 'nails/module-testimonial');
 
         $testimonial = $oTestimonialModel->getById($this->uri->segment(5));
 
         if (!$testimonial) {
-
-            $this->session->set_flashdata('error', lang('testimonials_common_bad_id'));
+            $oSession->setFlashData('error', lang('testimonials_common_bad_id'));
             redirect('admin/testimonial/testimonial/index');
         }
 
         // --------------------------------------------------------------------------
 
         if ($oTestimonialModel->delete($testimonial->id)) {
-
-            $this->session->set_flashdata('success', lang('testimonials_delete_ok'));
-
+            $oSession->setFlashData('success', lang('testimonials_delete_ok'));
         } else {
-
-            $this->session->set_flashdata('error', lang('testimonials_delete_fail'));
+            $oSession->setFlashData('error', lang('testimonials_delete_fail'));
         }
 
         // --------------------------------------------------------------------------
