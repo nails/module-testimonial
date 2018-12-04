@@ -14,9 +14,9 @@ namespace Nails\Admin\Testimonial;
 
 use Nails\Factory;
 use Nails\Admin\Helper;
-use Nails\Testimonial\Controller\BaseAdmin;
+use Nails\Admin\Controller\Base;
 
-class Testimonial extends BaseAdmin
+class Testimonial extends Base
 {
     /**
      * Announces this controller's navGroups
@@ -91,7 +91,7 @@ class Testimonial extends BaseAdmin
         $oInput     = Factory::service('Input');
         $iPage      = (int) $oInput->get('page') ?: 0;
         $iPerPage   = (int) $oInput->get('perPage') ?: 50;
-        $sSortOn    = $oInput->get('sortOn') ?: 't.created';
+        $sSortOn    = $oInput->get('sortOn') ?: 'created';
         $sSortOrder = $oInput->get('sortOrder') ?: 'desc';
         $sKeywords  = $oInput->get('keywords') ?: '';
 
@@ -99,9 +99,9 @@ class Testimonial extends BaseAdmin
 
         //  Define the sortable columns
         $sortColumns = [
-            't.created'  => 'Created Date',
-            't.modified' => 'Modified Date',
-            't.quote_by' => 'Quotee',
+            'created'  => 'Created Date',
+            'modified' => 'Modified Date',
+            'quote_by' => 'Quotee',
         ];
 
         // --------------------------------------------------------------------------

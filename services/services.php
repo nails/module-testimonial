@@ -1,7 +1,7 @@
 <?php
 
-return array(
-    'models' => array(
+return [
+    'models' => [
         'Testimonial' => function () {
             if (class_exists('\App\Testimonial\Model\Testimonial')) {
                 return new \App\Testimonial\Model\Testimonial();
@@ -9,5 +9,5 @@ return array(
                 return new \Nails\Testimonial\Model\Testimonial();
             }
         }
-    )
-);
+    ]
+];

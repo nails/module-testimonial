@@ -43,7 +43,18 @@
         {
             "moduleName": "testimonial",
             "type": "module",
-            "namespace": "Nails\\Testimonial\\"
+            "namespace": "Nails\\Testimonial\\",
+            "data": {
+                "nails/module-admin": {
+                    "autoload": {
+                        "assets": {
+                            "css": [
+                                "admin.min.css"
+                            ]
+                        }
+                    }
+                },
+            }
         }
     }
 }
