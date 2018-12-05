@@ -47,7 +47,7 @@ jobs:
     - save_cache:
         paths:
         - ./node_modules
-        key: yarn-dependencies-{{ checksum "yark.lock" }}
+        key: yarn-dependencies-{{ checksum "yarn.lock" }}
 
     # run tests!
     - run: ./vendor/bin/phpunit
