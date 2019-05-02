@@ -6,5 +6,3 @@
 [![Join the chat on Slack!](https://now-examples-slackin-rayibnpwqe.now.sh/badge.svg)](https://nails-app.slack.com/shared_invite/MTg1NDcyNjI0ODcxLTE0OTUwMzA1NTYtYTZhZjc5YjExMQ)
 
 This is the testimonial module for nails, it provides an interface for creating and managing testimonials.
-
-http://nailsapp.co.uk/modules/testimonial
