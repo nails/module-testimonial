@@ -30,32 +30,27 @@
                             echo '</td>';
                             echo '<td class="actions">';
 
-                                if (userHasPermission('admin:testimonial:testimonial:edit')) :
-
+                                if (userHasPermission('admin:testimonial:testimonial:edit')) {
                                     echo anchor(
                                         'admin/testimonial/testimonial/edit/' . $testimonial->id,
                                         lang('action_edit'),
                                         'class="btn btn-xs btn-primary"'
                                     );
+                                }
 
-                                endif;
-
-                                if (userHasPermission('admin:testimonial:testimonial:delete')) :
-
+                                if (userHasPermission('admin:testimonial:testimonial:delete')) {
                                     echo anchor(
                                         'admin/testimonial/testimonial/delete/' . $testimonial->id,
                                         lang('action_delete'),
                                         'class="btn btn-xs btn-danger confirm" data-body="You cannot undo this action"'
                                     );
-
-                                endif;
+                                }
 
                             echo '</td>';
                         echo '<tr>';
                     }
 
                 } else {
-
                     ?>
                     <tr>
                         <td colspan="2" class="no-data"><?=lang('testimonials_index_no_testimonials')?></td>
