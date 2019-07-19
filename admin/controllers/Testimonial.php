@@ -61,7 +61,7 @@ class Testimonial extends Base
     public function __construct()
     {
         parent::__construct();
-        $this->lang->load('admin_testimonials');
+        get_instance()->lang->load('admin_testimonials');
     }
 
     // --------------------------------------------------------------------------
