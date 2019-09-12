@@ -15,6 +15,7 @@ namespace Nails\Admin\Testimonial;
 use Nails\Factory;
 use Nails\Admin\Helper;
 use Nails\Admin\Controller\Base;
+use Nails\Auth;
 
 class Testimonial extends Base
 {
@@ -177,7 +178,7 @@ class Testimonial extends Base
 
                 if ($oTestimonialModel->create($aData)) {
 
-                    $oSession = Factory::service('Session', 'nails/module-auth');
+                    $oSession = Factory::service('Session', Auth\Constants::MODULE_SLUG);
                     $oSession->setFlashData('success', lang('testimonials_create_ok'));
                     redirect('admin/testimonial/testimonial/index');
 
@@ -211,7 +212,7 @@ class Testimonial extends Base
         // --------------------------------------------------------------------------
 
         $oUri              = Factory::service('Uri');
-        $oSession          = Factory::service('Session', 'nails/module-auth');
+        $oSession          = Factory::service('Session', Auth\Constants::MODULE_SLUG);
         $oTestimonialModel = Factory::model('Testimonial', 'nails/module-testimonial');
 
         $this->data['testimonial'] = $oTestimonialModel->getById($oUri->segment(5));
@@ -281,7 +282,7 @@ class Testimonial extends Base
         // --------------------------------------------------------------------------
 
         $oUri              = Factory::service('Uri');
-        $oSession          = Factory::service('Session', 'nails/module-auth');
+        $oSession          = Factory::service('Session', Auth\Constants::MODULE_SLUG);
         $oTestimonialModel = Factory::model('Testimonial', 'nails/module-testimonial');
 
         $testimonial = $oTestimonialModel->getById($oUri->segment(5));
