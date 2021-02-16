@@ -28,7 +28,7 @@ class Testimonial extends Base
     {
         if (userHasPermission('admin:testimonial:testimonial:manage')) {
 
-            $oNavGroup = Factory::factory('Nav', 'nails/module-admin');
+            $oNavGroup = Factory::factory('Nav', \Nails\Admin\Constants::MODULE_SLUG);
             $oNavGroup->setLabel('Testimonials');
             $oNavGroup->setIcon('fa-comments');
             $oNavGroup->addAction('Manage Testimonials');
