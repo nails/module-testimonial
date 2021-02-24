@@ -17,6 +17,7 @@ use Nails\Admin\Helper;
 use Nails\Admin\Controller\Base;
 use Nails\Common\Service\Session;
 use Nails\Common\Service\Uri;
+use Nails\Testimonial\Constants;
 
 class Testimonial extends Base
 {
@@ -80,7 +81,7 @@ class Testimonial extends Base
 
         // --------------------------------------------------------------------------
 
-        $oTestimonialModel = Factory::model('Testimonial', 'nails/module-testimonial');
+        $oTestimonialModel = Factory::model('Testimonial', Constants::MODULE_SLUG);
 
         // --------------------------------------------------------------------------
 
@@ -175,7 +176,7 @@ class Testimonial extends Base
                     'quote_dated' => $oInput->post('quote_dated'),
                 ];
 
-                $oTestimonialModel = Factory::model('Testimonial', 'nails/module-testimonial');
+                $oTestimonialModel = Factory::model('Testimonial', Constants::MODULE_SLUG);
 
                 if ($oTestimonialModel->create($aData)) {
 
@@ -217,7 +218,7 @@ class Testimonial extends Base
         $oUri = Factory::service('Uri');
         /** @var Session $oSession */
         $oSession = Factory::service('Session');
-        $oTestimonialModel = Factory::model('Testimonial', 'nails/module-testimonial');
+        $oTestimonialModel = Factory::model('Testimonial', Constants::MODULE_SLUG);
 
         $this->data['testimonial'] = $oTestimonialModel->getById($oUri->segment(5));
 
@@ -289,7 +290,7 @@ class Testimonial extends Base
         $oUri = Factory::service('Uri');
         /** @var Session $oSession */
         $oSession = Factory::service('Session');
-        $oTestimonialModel = Factory::model('Testimonial', 'nails/module-testimonial');
+        $oTestimonialModel = Factory::model('Testimonial', Constants::MODULE_SLUG);
 
         $testimonial = $oTestimonialModel->getById($oUri->segment(5));
 
