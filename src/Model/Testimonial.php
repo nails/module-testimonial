@@ -12,7 +12,9 @@
 
 namespace Nails\Testimonial\Model;
 
+use Nails\Common;
 use Nails\Common\Model\Base;
+use Nails\Cdn;
 use Nails\Testimonial\Constants;
 
 /**
@@ -36,5 +38,24 @@ class Testimonial extends Base
     {
         parent::__construct();
         $this->searchableFields = ['quote', 'quote_by'];
+    }
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * @inheritDoc
+     */
+    public function describeFields($sTable = null)
+    {
+        $aFields = parent::describeFields($sTable);
+
+        $aFields['quote']->type         = Common\Helper\Form::FIELD_WYSIWYG_BASIC;
+        $aFields['quote']->required     = true;
+        $aFields['quote']->validation[] = Common\Service\FormValidation::RULE_REQUIRED;
+
+        $aFields['image_id']->label = 'Image';
+        $aFields['image_id']->type  = Cdn\Helper\Form::FIELD_OBJECT_PICKER;
+
+        return $aFields;
     }
 }
