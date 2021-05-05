@@ -23,8 +23,8 @@ use Nails\Testimonial\Constants;
 class Testimonial extends Base
 {
     const TABLE               = NAILS_DB_PREFIX . 'testimonial';
-    const RESOURE_NAME        = 'Testimonial';
-    const RESOURE_PROVIDER    = Constants::MODULE_SLUG;
+    const RESOURCE_NAME       = 'Testimonial';
+    const RESOURCE_PROVIDER   = Constants::MODULE_SLUG;
     const DEFAULT_SORT_COLUMN = 'quote';
 
     // --------------------------------------------------------------------------
@@ -35,6 +35,6 @@ class Testimonial extends Base
     public function __construct()
     {
         parent::__construct();
-        $this->searchableFields  = ['quote', 'quote_by'];
+        $this->searchableFields = ['quote', 'quote_by'];
     }
 }

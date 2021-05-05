@@ -22,5 +22,5 @@ class Testimonial extends Entity
   public $quote_dated;
 
   /** @var int|null */
-  public $image_id
+  public $image_id;
 }
