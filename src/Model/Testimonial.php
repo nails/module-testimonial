@@ -13,10 +13,18 @@
 namespace Nails\Testimonial\Model;
 
 use Nails\Common\Model\Base;
+use Nails\Testimonial\Constants;
 
+/**
+ * Class Testimonial
+ *
+ * @package Nails\Testimonial\Model
+ */
 class Testimonial extends Base
 {
     const TABLE               = NAILS_DB_PREFIX . 'testimonial';
+    const RESOURE_NAME        = 'Testimonial';
+    const RESOURE_PROVIDER    = Constants::MODULE_SLUG;
     const DEFAULT_SORT_COLUMN = 'quote';
 
     // --------------------------------------------------------------------------
