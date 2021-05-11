@@ -32,12 +32,16 @@ class Testimonial extends Base
     // --------------------------------------------------------------------------
 
     /**
-     * Model constructor
-     **/
-    public function __construct()
+     * Returns the searchable columns for this module
+     *
+     * @return string[]
+     */
+    public function getSearchableColumns(): array
     {
-        parent::__construct();
-        $this->searchableFields = ['quote', 'quote_by'];
+        return [
+            'quote',
+            'quote_by',
+        ];
     }
 
     // --------------------------------------------------------------------------
