@@ -28,6 +28,10 @@ class Testimonial extends Base
     const RESOURCE_NAME       = 'Testimonial';
     const RESOURCE_PROVIDER   = Constants::MODULE_SLUG;
     const DEFAULT_SORT_COLUMN = 'quote';
+    const FIELD_CLASSES       = [
+        'body'     => 'ModelFieldWysiwygBasic',
+        'image_id' => ['ModleFieldObject', \Nails\Cdn\Constants::MODULE_SLUG],
+    ];
 
     // --------------------------------------------------------------------------
 
@@ -53,12 +57,11 @@ class Testimonial extends Base
     {
         $aFields = parent::describeFields($sTable);
 
-        $aFields['quote']->type         = Common\Helper\Form::FIELD_WYSIWYG_BASIC;
-        $aFields['quote']->required     = true;
-        $aFields['quote']->validation[] = Common\Service\FormValidation::RULE_REQUIRED;
+        $aFields['quote']
+            ->setIsRequired(true);
 
-        $aFields['image_id']->label = 'Image';
-        $aFields['image_id']->type  = Cdn\Helper\Form::FIELD_OBJECT_PICKER;
+        $aFields['image_id']
+            ->setLabel('Image');
 
         return $aFields;
     }
