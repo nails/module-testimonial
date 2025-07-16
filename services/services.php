@@ -14,12 +14,11 @@ return [
         },
     ],
     'resources' => [
-        'Testimonial' => function ($mObj): Resource\Testimonial {
-
+        'Testimonial' => function ($resource, $model): Resource\Testimonial {
             if (class_exists('\App\Testimonial\Resource\Testimonial')) {
-                return new \App\Testimonial\Resource\Testimonial($mObj);
+                return new \App\Testimonial\Resource\Testimonial($resource, $model);
             } else {
-                return new Resource\Testimonial($mObj);
+                return new Resource\Testimonial($resource, $model);
             }
         },
     ],
