@@ -30,7 +30,7 @@ class Testimonial extends Base
     const DEFAULT_SORT_COLUMN = 'quote';
     const FIELD_CLASSES       = [
         'body'     => 'ModelFieldWysiwygBasic',
-        'image_id' => ['ModleFieldObject', \Nails\Cdn\Constants::MODULE_SLUG],
+        'image_id' => ['ModelFieldObject', \Nails\Cdn\Constants::MODULE_SLUG],
     ];
 
     // --------------------------------------------------------------------------
