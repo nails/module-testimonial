@@ -10,7 +10,7 @@
  * @link
  */
 
-namespace Nails\Admin\Testimonial;
+namespace Nails\Testimonial\Admin\Controller;
 
 use Nails\Admin\Controller\DefaultController;
 use Nails\Testimonial\Constants;
